@@ -1,14 +1,11 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { useWeb3React } from "@web3-react/core";
-import TextField from '@mui/material/TextField';
 import { Typography, Grid, Box, styled } from '@mui/material';
 import Web3 from 'web3';
 import ConnectWallet from './WalletConnect/ConnectWallete';
 
-const InputTextField = styled(TextField)`
-margin-left:32rem;
-`;
+
 
 const TokenButton = styled(Button)`
 margin-left:32rem;
@@ -37,7 +34,7 @@ const TokenBalance = () => {
     //   const { activate, active } = useWeb3React();
     const lib = library;
     const web3 = new Web3(lib?.provider);
-    const [walletAddress, setWalletAddress] = useState('');
+    // const [walletAddress, setWalletAddress] = useState('');
     const [tokenBalances, setTokenBalances] = useState([]);
 
     useEffect(() => {
@@ -56,7 +53,7 @@ const TokenBalance = () => {
 
             const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
             const result = await tokenContract.methods
-                .balanceOf(walletAddress)
+                .balanceOf(account)
                 .call();
             setTokenBalances(result);
             console.log("data=>", result);
@@ -80,7 +77,7 @@ const TokenBalance = () => {
                 <Box>
                     {account ? (
                         <Box>
-                            <Grid item xs={12}>
+                            {/* <Grid item xs={12}>
                                 <InputTextField
                                     label="Ethereum Address"
                                     value={walletAddress}
@@ -89,7 +86,7 @@ const TokenBalance = () => {
                                     variant="outlined"
                                     margin="normal"
                                 />
-                            </Grid>
+                            </Grid> */}
 
                             <Grid item xs={12}>
                                 <TokenButton variant="contained" color="primary" onClick={fetchTokenBalances}>
